@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function FooterBar() {
-  return (
-    <footer>aqui iran botones inferiores</footer>
-  )
+  return <footer>aqui iran botones inferiores</footer>;
 }
