@@ -20,7 +20,6 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <NavBar />
-
         <Routes>
           <Route exact path="/AddProduct" element={<AddProduct />} />
           <Route exact path="Bills" element={<Bills />} />
