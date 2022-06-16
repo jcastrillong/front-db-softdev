@@ -1,0 +1,15 @@
+
+
+.containerPrincipal {
+    position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgb(248, 170, 1);
+      padding: 40px;
+      background-color: rgb(241, 241, 241);
+  }
+  
+  .containerSecundario{
+    text-align: center;
+  }
