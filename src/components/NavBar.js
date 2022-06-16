@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { NavBarData } from "./NavBarData";
+
+import { NavBarDataUp } from "./NavBarDataUp";
+import { NavBarDataDown } from "./NavBarDataDown";
 import { IconContext } from "react-icons/lib";
 
 import * as FaIcons from "react-icons/fa";
@@ -28,7 +30,8 @@ export default function NavBar() {
                 <IoIcons.IoMdCloseCircleOutline />
               </Link>
             </li>
-            {NavBarData.map((item, index) => {
+
+            {NavBarDataUp.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>
@@ -38,6 +41,18 @@ export default function NavBar() {
                 </li>
               );
             })}
+            <li className="menu-items-down">
+              {NavBarDataDown.map((item, index) => {
+                return (
+                  <li key={index} className={item.cName}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>

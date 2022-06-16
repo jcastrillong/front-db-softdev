@@ -4,7 +4,7 @@ import * as TbIcons from "react-icons/tb";
 import * as AiIcons from "react-icons/ai";
 import * as MdIcons from "react-icons/md";
 
-export const NavBarData = [
+export const NavBarDataUp = [
   {
     title: "Inicio",
     path: "/Home",

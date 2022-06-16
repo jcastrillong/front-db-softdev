@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
 import "./styles/App.css";
 
 import NavBar from "./NavBar";
-import FooterBar from "./FooterBar";
 
 import AddProduct from "../pages/AddProduct";
 import Bills from "../pages/Bills";
@@ -30,8 +29,6 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route path="*" element={<Pag404 />} />
         </Routes>
-
-        <FooterBar />
       </div>
     </BrowserRouter>
   );
