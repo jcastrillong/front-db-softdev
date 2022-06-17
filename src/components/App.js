@@ -20,12 +20,12 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route exact path="/AddProduct" element={<AddProduct />} />
-          <Route exact path="Bills" element={<Bills />} />
-          <Route exact path="/Contact" element={<Contact />} />
-          <Route exact path="/Help" element={<Help />} />
-          <Route exact path="/Home" element={<Home />} />
-          <Route exact path="/Inventory" element={<Inventory />} />
+          <Route exact path="/addProduct" element={<AddProduct />} />
+          <Route exact path="bills" element={<Bills />} />
+          <Route exact path="/contact" element={<Contact />} />
+          <Route exact path="/help" element={<Help />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/inventory" element={<Inventory />} />
           <Route exact path="/" element={<Login />} />
           <Route path="*" element={<Pag404 />} />
         </Routes>

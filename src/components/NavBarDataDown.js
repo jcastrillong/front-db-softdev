@@ -6,13 +6,13 @@ import * as AiIcons from "react-icons/ai";
 export const NavBarDataDown = [
   {
     title: "Contacto",
-    path: "/Contact",
+    path: "/contact",
     icon: <AiIcons.AiOutlineContacts />,
     cName: "nav-text",
   },
   {
     title: "Ayuda",
-    path: "/Help",
+    path: "/help",
     icon: <FiIcons.FiHelpCircle />,
     cName: "nav-text",
   },

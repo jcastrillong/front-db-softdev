@@ -7,19 +7,19 @@ import * as MdIcons from "react-icons/md";
 export const NavBarDataUp = [
   {
     title: "Inicio",
-    path: "/Home",
+    path: "/home",
     icon: <AiIcons.AiOutlineHome />,
     cName: "nav-text",
   },
   {
     title: "Inventario",
-    path: "/Inventory",
+    path: "/inventory",
     icon: <MdIcons.MdOutlineInventory />,
     cName: "nav-text",
   },
   {
     title: "Facturas",
-    path: "/Bills",
+    path: "/bills",
     icon: <TbIcons.TbFileInvoice />,
     cName: "nav-text",
   },
