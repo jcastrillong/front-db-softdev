@@ -1,10 +1,11 @@
-import React from "react";
-import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
+import { 
+  BrowserRouter as Router,
+  Route, 
+  Routes
+} from "react-router-dom";
 
-import "./styles/App.css";
-
-import FooterBar from "./FooterBar";
-
+import PrivateRoute from "./PrivateRoute";
+import Header from "./Header";
 import AddProduct from "../pages/AddProduct";
 import Bills from "../pages/Bills"
 import Contact from "../pages/Contact"
@@ -14,25 +15,31 @@ import Inventory from "../pages/Inventory"
 import Login from "../pages/Login";
 import Pag404 from "../pages/Pag404";
 
-function App() {
+import "./styles/App.css";
+import { useEffect, useState } from "react";
+
+function App(props) {
   return (
-    <BrowserRouter>
+    <Router>
       <div className="App">
+        <div className="circle-background"></div>
+        <Header title={`Permisa`}/>
         <Routes>
-          <Route exact path="/AddProduct" element={<AddProduct/>}/>
-          <Route exact path="Bills" element={<Bills/>}/>
-          <Route exact path="/Contact" element={<Contact/>}/>
-          <Route exact path="/Help" element={<Help/>}/>
-          <Route exact path="/Home" element={<Home/>} />
-          <Route exact path="/Inventory" element={<Inventory/>}/>
-          <Route exact path="/" element={<Login/>} />
+          {/* Routes Protected */}
+          {/* <Route path="/" element={<PrivateRoute component={Home} />} /> */}
+          <Route path="/facturas" element={<PrivateRoute component={Bills} />} />
+          <Route path="/inicio" element={<PrivateRoute component={Home} />} />
+          <Route path="/inventario" element={<PrivateRoute component={Inventory} />} />
+          <Route path="/add-producto" element={<PrivateRoute component={AddProduct} />} />
+
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/contacto" element={<Contact/>}/>
+          <Route exact path="/ayuda" element={<Help/>}/>
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Pag404/>} />
         </Routes>
-
-        <FooterBar/>
-
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

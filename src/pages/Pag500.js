@@ -4,7 +4,7 @@ const Pag500 = () => {
   return (
     <div>
       <h1>Error interno del servidor.</h1>
-      <h1>ERROR 500.</h1>
+      <h2>ERROR 500.</h2>
     </div>
   );
 };
