@@ -14,7 +14,7 @@
 .menu-bars {
   margin-left: 1rem;
   font-size: 1.5rem;
-  margin-top: -4px;
+  margin-top: 5px;
   background-color: none;
 }
 
@@ -32,6 +32,11 @@
   font-size: 1rem;
 }
 
+.user-bar a {
+  display: flex;
+  align-items: center;
+}
+
 .nav-menu {
   background-color: #171518;
   width: 210px;
@@ -42,6 +47,7 @@
   top: 0;
   left: -100%;
   transition: 850ms;
+  z-index: 1;
 }
 
 .nav-menu.active {

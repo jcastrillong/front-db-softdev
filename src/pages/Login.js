@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import sweal from 'sweetalert';
-
-// import { login } from "../services/auth.service";
-// import { setToken } from "../helpers/auth.helpers";
 import { useUser } from "../hooks/useUser";
 
 import "./Login.css"
@@ -15,7 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLogged) navigate("/bills");
+    if (isLogged) navigate("/home");
   }, [isLogged, navigate]);
 
   const handleLogin = async (e) => {
