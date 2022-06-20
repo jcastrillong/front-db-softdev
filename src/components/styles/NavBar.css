@@ -42,6 +42,7 @@
   top: 0;
   left: -100%;
   transition: 850ms;
+  z-index: 1;
 }
 
 .nav-menu.active {
@@ -82,6 +83,7 @@
 .nav-menu-items {
   width: 100%;
   padding: 0;
+  z-index: 1000;
 }
 
 .navbar-toggle {

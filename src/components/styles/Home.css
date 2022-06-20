@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+span {
+    border-bottom: 100% solid white;
+    border-right: 50% solid transparent;
+    position: absolute;
+}
+
+.img{
+    width: 50%;
+    height: auto;
+}
+
+.img-fluid {
+    display: flex;
+    margin-left: 20%;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.texto{
+    margin-top: 8%;
+}
+
+.titulo {
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 10%;
+}
+
+.descripcion {
+    font-size: 20px;
+    font-weight: lighter;
+    margin-top: 2%;
+}
+
+.botones {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.btnIniciar {
+    width: 40%;
+    font-weight: 600;
+    background-color: #3A78D4;
+    color: white;
+    padding: .3rem;
+    border-radius: 10px 0px 10px 0px ;
+    font-size: larger;
+}

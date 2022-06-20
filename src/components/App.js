@@ -19,16 +19,16 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <NavBar />
-        <Routes>
-          <Route exact path="/addProduct" element={<AddProduct />} />
-          <Route exact path="bills" element={<Bills />} />
-          <Route exact path="/contact" element={<Contact />} />
-          <Route exact path="/help" element={<Help />} />
-          <Route exact path="/home" element={<Home />} />
-          <Route exact path="/inventory" element={<Inventory />} />
-          <Route exact path="/" element={<Login />} />
-          <Route path="*" element={<Pag404 />} />
-        </Routes>
+          <Routes>
+            <Route exact path="/addProduct" element={<AddProduct />} />
+            <Route exact path="bills" element={<Bills />} />
+            <Route exact path="/contact" element={<Contact />} />
+            <Route exact path="/help" element={<Help />} />
+            <Route exact path="/home" element={<Home />} />
+            <Route exact path="/inventory" element={<Inventory />} />
+            <Route exact path="/" element={<Login />} />
+            <Route path="*" element={<Pag404 />} />
+          </Routes>
       </div>
     </BrowserRouter>
   );
