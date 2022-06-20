@@ -1,46 +1,29 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import sweal from 'sweetalert';
 
-import authService from "../services/auth.service";
+// import { login } from "../services/auth.service";
+// import { setToken } from "../helpers/auth.helpers";
+import { useUser } from "../hooks/useUser";
 
 import "./Login.css"
 
-const Login = ({ userSession }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState(userSession);
-  const [error, setError] = useState("");
+const Login = () => {
+  const [ username, setUsername ] = useState("");
+  const [ password, setPassword ] = useState("");
+  const { login, isLoginLoading, hasLoginError, isLogged } = useUser();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    if (id === "username") {
-      setUsername(value);
-    }
-    if (id === "password") {
-      setPassword(value);
-    }
-  }
+  useEffect(() => {
+    if (isLogged) navigate("/bills");
+  }, [isLogged, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("handleLogin");
-    try {
-      const user = await authService.login({
-        username,
-        password
-      })
-
-      if (user) {
-        window.sessionStorage.setItem("token", JSON.stringify(user));
-        setUser(user);
-        setUsername("");
-        setPassword("");
-        setError("");
-        navigate("/facturas");
-      } 
-    } catch (error) {
-      alert("Usuario o Contraseña Incorrectos");
+    if (username === "" || password === "") {
+      sweal("Error", "Por favor ingrese un usuario y contraseña", "error");
+    } else {
+      login({username, password});
     }
   }
 
@@ -52,12 +35,12 @@ const Login = ({ userSession }) => {
           <div className="form-item">
             <label htmlFor="username">Usuario</label>
             <input
-                id="username"
+                name="username"
                 type="text"
                 autoComplete="username"
                 value={username}
                 placeholder="Ingrese usuario"
-                onChange={handleChange}
+                onChange={(e) => setUsername(e.target.value)}
                 required
             />
           </div>
@@ -65,30 +48,28 @@ const Login = ({ userSession }) => {
           <div className="form-item">
             <label htmlFor="current-password">Contraseña</label>
             <input
-                id="password"
+                name="password"
                 autoComplete="current-password"
                 type="password"
                 value={password}
                 placeholder="Ingrese contraseña"
-                onChange={handleChange}
+                onChange={(e) => setPassword(e.target.value)}
                 required
             />
           </div>
-
+          { isLoginLoading && <div className="loading">Cargando...</div> }
+          { !isLoginLoading &&
             <button 
-              type="submit"
+            type="submit"
               className="btn btn-blue"
               onClick={handleLogin}
-            >
+              >
               Iniciar sesion
             </button>
-          <div className="form-login-btns">
-          </div>
+          }
         </form>
-        <button className="btn btn-red">
-          Cancelar
-        </button>
       </div>
+      { hasLoginError && <div className="error">Usuario o contraseña incorrectos</div> }
     </div>
   );
 };

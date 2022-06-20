@@ -1,32 +1,26 @@
-function FormItem(props) {
+import React from "react";
 
-  if(props.type) {
+function FormItem( { ...rest }) {
+
+  if(rest.type) {
     return (
       <div className="form-item">
-      <label htmlFor="exampleFormControlSelect1">{`${props.label}:`}</label>
+      <label htmlFor="exampleFormControlSelect1">{`${rest.label}:`}</label>
       <input 
-        type={props.type} 
-        className="form-control" 
-        {
-          ...props.disable ? 
-          {disabled: true} :
-          {disabled: false}
-        }
-        id={`${props.label}`}
-        placeholder={`Ingrese ${props.label}`} 
+        {...rest}
       />
     </div>
     )
-  } else if(props.select) {
+  } else {
     return (
       <div className="form-item">
-        <label>{`${props.label}:`}</label>
-        <select defaultValue="0">
+        <label>{`${rest.label}:`}</label>
+        <select {...rest}>
           <option value="0" disabled>--Select Product--</option>
           {
-            props.options.map((option, index) => {
+            rest.options.map((option) => {
               return (
-                <option key={index} value={option.id}>{option.name}</option>
+                <option key={option.idProduct} id={option.idProduct}>{option.name}</option>
               )
             })  
           }

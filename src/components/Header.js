@@ -1,29 +1,29 @@
-import { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'
+
+import { useUser } from '../hooks/useUser';
+
 import './styles/Header.css'
 
 function Header({ title }) {
-  const [ auth, setAuth ] = useState(false)
-
-  const handleLogout = () => {
-    window.sessionStorage.removeItem("token");
-    setAuth(false);
-  }
+  const { isLogged, logout } = useUser();
 
   return (
     <header className="header">
-      <h1>
-        <Link to="/home">{`${title}`}</Link>
-      </h1>
-      <h2>
-        <Link to="/facturas">Facturación</Link>
-      </h2>
         {
-          auth 
+          isLogged 
           ? (
-            <button>
-              <Link to="/" onClick={handleLogout}>Cerrar Sesión</Link>
-            </button>
+            <>
+              <h1>
+                <Link to="/home">{`${title}`}</Link>
+              </h1>
+              <h2>
+                <Link to="/bills">Facturación</Link>
+              </h2>
+              <button>
+                <Link to="#" onClick={logout}>Cerrar Sesión</Link>
+              </button>
+            </>
           ) 
           : (
             <button>

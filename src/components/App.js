@@ -1,3 +1,4 @@
+import React from "react";
 import { 
   BrowserRouter as Router,
   Route, 
@@ -8,38 +9,42 @@ import PrivateRoute from "./PrivateRoute";
 import Header from "./Header";
 import AddProduct from "../pages/AddProduct";
 import Bills from "../pages/Bills"
+import AddBills from "../pages/AddBills";
 import Contact from "../pages/Contact"
 import Help from "../pages/Help"
 import Home from "../pages/Home";
 import Inventory from "../pages/Inventory"
 import Login from "../pages/Login";
 import Pag404 from "../pages/Pag404";
+import { UserContextProvider } from './../context/UserContext'
 
 import "./styles/App.css";
-import { useEffect, useState } from "react";
 
 function App(props) {
   return (
-    <Router>
-      <div className="App">
-        <div className="circle-background"></div>
-        <Header title={`Permisa`}/>
-        <Routes>
-          {/* Routes Protected */}
-          {/* <Route path="/" element={<PrivateRoute component={Home} />} /> */}
-          <Route path="/facturas" element={<PrivateRoute component={Bills} />} />
-          <Route path="/inicio" element={<PrivateRoute component={Home} />} />
-          <Route path="/inventario" element={<PrivateRoute component={Inventory} />} />
-          <Route path="/add-producto" element={<PrivateRoute component={AddProduct} />} />
+    <UserContextProvider>
+      <Router>
+        <div className="App">
+          <div className="circle-background"></div>
+          <Header title={`Permisa`}/>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            {/* Routes Protected */}
+            <Route path="/home" element={<PrivateRoute component={Home} />} />
+            <Route path="/bills" element={<PrivateRoute component={Bills} />} />
+            <Route path="/home" element={<PrivateRoute component={Home} />} />
+            <Route path="/inventary" element={<PrivateRoute component={Inventory} />} />
+            <Route path="/add-product" element={<PrivateRoute component={AddProduct} />} />
+            <Route path="/add-bills" element={<PrivateRoute component={AddBills} />} />
 
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/contacto" element={<Contact/>}/>
-          <Route exact path="/ayuda" element={<Help/>}/>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Pag404/>} />
-        </Routes>
-      </div>
-    </Router>
+            {/* <Route exact path="/" element={<Home />} /> */}
+            <Route exact path="/contact" element={<Contact/>}/>
+            <Route exact path="/help" element={<Help/>}/>
+            <Route path="*" element={<Pag404/>} />
+          </Routes>
+        </div>
+      </Router>
+    </UserContextProvider>
   );
 }
 
