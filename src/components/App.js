@@ -8,7 +8,6 @@ import {
 
 import NavBar from "./NavBar";
 import PrivateRoute from "./PrivateRoute";
-import Header from "./Header";
 import AddProduct from "../pages/AddProduct";
 import Bills from "../pages/Bills"
 import AddBills from "../pages/AddBills";
@@ -35,7 +34,7 @@ function App(props) {
             <Route path="/home" element={<PrivateRoute component={Home} />} />
             <Route path="/bills" element={<PrivateRoute component={Bills} />} />
             <Route path="/home" element={<PrivateRoute component={Home} />} />
-            <Route path="/inventary" element={<PrivateRoute component={Inventory} />} />
+            <Route path="/inventory" element={<PrivateRoute component={Inventory} />} />
             <Route path="/add-product" element={<PrivateRoute component={AddProduct} />} />
             <Route path="/add-bills" element={<PrivateRoute component={AddBills} />} />
 
