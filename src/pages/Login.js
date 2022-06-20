@@ -1,41 +1,77 @@
-import React, { Component } from 'react';
-import '../components/styles/Login.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import sweal from 'sweetalert';
 
-class Login extends Component {
- 
-    render() {
-        return (
+// import { login } from "../services/auth.service";
+// import { setToken } from "../helpers/auth.helpers";
+import { useUser } from "../hooks/useUser";
 
-     
-    <div className="containerPrincipal">
-        <div className="containerSecundario">
-              
-          <div className="form-group">
-            <h2>Iniciar sesion</h2>
-            <label>Usuario: </label>
-            <br />
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-            />
+import "./Login.css"
 
-            <br />  
-            <label>Contraseña: </label>
-            <br />
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-            />
-            <br />
-            <button className="btn btn-primary" >Iniciar Sesión</button>
-          </div>
-        </div>
-      </div>
-        );
+const Login = () => {
+  const [ username, setUsername ] = useState("");
+  const [ password, setPassword ] = useState("");
+  const { login, isLoginLoading, hasLoginError, isLogged } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogged) navigate("/bills");
+  }, [isLogged, navigate]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    if (username === "" || password === "") {
+      sweal("Error", "Por favor ingrese un usuario y contraseña", "error");
+    } else {
+      login({username, password});
     }
-}
+  }
+
+  return (
+    <div className="content">
+      <h1 className="title-login">Iniciar sesion</h1>
+      <div className="form-login">
+        <form className="form-content" onSubmit={handleLogin}>
+          <div className="form-item">
+            <label htmlFor="username">Usuario</label>
+            <input
+                name="username"
+                type="text"
+                autoComplete="username"
+                value={username}
+                placeholder="Ingrese usuario"
+                onChange={(e) => setUsername(e.target.value)}
+                required
+            />
+          </div>
+
+          <div className="form-item">
+            <label htmlFor="current-password">Contraseña</label>
+            <input
+                name="password"
+                autoComplete="current-password"
+                type="password"
+                value={password}
+                placeholder="Ingrese contraseña"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+            />
+          </div>
+          { isLoginLoading && <div className="loading">Cargando...</div> }
+          { !isLoginLoading &&
+            <button 
+            type="submit"
+              className="btn btn-blue"
+              onClick={handleLogin}
+              >
+              Iniciar sesion
+            </button>
+          }
+        </form>
+      </div>
+      { hasLoginError && <div className="error">Usuario o contraseña incorrectos</div> }
+    </div>
+  );
+};
 
 export default Login;
