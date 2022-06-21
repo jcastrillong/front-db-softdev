@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const url = `http://localhost:4000/Categories`;
+const user = JSON.parse(window.localStorage.getItem("user"));
 
+const url = `http://localhost:3001/api/categories`;
 const config = {
   headers: {
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${user ? user.token : ""}`,
   },
 };
 
@@ -19,6 +21,10 @@ export const getCategoryById = async (id) => {
 
 export const getCategories = () => {
   return axios.get(url, config)
+    .then(res => res.data)
+    .catch(err => {
+      throw err;
+    })
 }
 
 export function createCategory (category) {

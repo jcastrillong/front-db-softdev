@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './../components/styles/Home.css';
 import desarrollo from './../img/desarrollo.png';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
 
 const Home = () => {
-
+  const navigate = useNavigate();
+  const { isLogged } = useUser();
   const login = () => {
     window.location.href = "http://localhost:3000/";
   }
@@ -12,6 +14,10 @@ const Home = () => {
   const help = () => {
     window.location.href = "http://localhost:3000/help";
   }
+
+  useEffect(() => {
+    if (isLogged) navigate("/home");
+  }, [isLogged, navigate]);
 
   return (
     <div>
@@ -22,7 +28,11 @@ const Home = () => {
           <p className="descripcion">La empresa Tecnocomputo disponible para usted</p>
         <br />
           <div className="botones">
-            <button className="btnIniciar" onClick={()=>login()}>Iniciar Sesion </button>
+            {
+              !isLogged 
+              ? <button className="btnIniciar" onClick={()=>login()}>Iniciar Sesion </button>
+              : null
+            }
             <button className="btnIniciar" onClick={()=>help()}>Ayuda</button>
           </div>
         </div>

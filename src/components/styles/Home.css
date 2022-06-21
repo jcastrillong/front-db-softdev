@@ -1,18 +1,13 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
 .container {
     display: flex;
     flex-direction: row;
 }
 
-span {
+/* span {
     border-bottom: 100% solid white;
     border-right: 50% solid transparent;
     position: absolute;
-}
+} */
 
 .img{
     width: 50%;

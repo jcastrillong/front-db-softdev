@@ -4,19 +4,17 @@ import './../components/styles/AddProduct.css';
 import { Modal, Button } from 'react-bootstrap';
 import {TextField } from '@material-ui/core';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { axios }  from 'axios';
 
 
 import { getProduct, getProducts } from '../services/product.service'
 import { createProduct } from '../services/product.service'
 import { updateProduct } from '../services/product.service'
 import { getCategories } from '../services/categories'
-import { getCategoryById } from '../services/categories'
+// import { getCategoryById } from '../services/categories'
 import { createCategory } from '../services/categories'
 import { updateCategory } from '../services/categories'
 
 const Products = () => {
-
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState([]);
@@ -56,13 +54,13 @@ const Products = () => {
 
   const saveProduct = async (e) => {
     try {
-      if (productoSeleccionado.id_product === '' || productoSeleccionado.name === '' || productoSeleccionado.description === ''   
-      || productoSeleccionado.price === '' || productoSeleccionado.quantity_available === '' 
-      || productoSeleccionado.id_category === '') {
+      if (productoSeleccionado.idProduct === '' || productoSeleccionado.name === '' || productoSeleccionado.description === ''   
+      || productoSeleccionado.price === '' || productoSeleccionado.quantityAvailable === '' 
+      || productoSeleccionado.idCategory === '') {
         throw new Error("Tdos los campos son obligatorios");
       }if (productoSeleccionado.price < 0) {
         throw new Error("El precio no puede ser negativo");
-      } if (productoSeleccionado.quantity_available < 0) {
+      } if (productoSeleccionado.quantityAvailable < 0) {
         throw new Error("La cantidad disponible no puede ser negativa");
       } else {
         const producto = await createProduct(productoSeleccionado);
@@ -78,9 +76,9 @@ const Products = () => {
     try {
       if (categoriaSeleccionada.name === '') {
         throw new Error("El nombre de la categoria es obligatorio");
-      } if (categoriaSeleccionada.id_category === '') {
+      } if (categoriaSeleccionada.idCategory === '') {
         throw new Error("El id de la categoria es obligatorio");
-      } if (categoriaSeleccionada.id_category === categoriaSeleccionada.id_category) {
+      } if (categoriaSeleccionada.idCategory === categoriaSeleccionada.idCategory) {
         throw new Error("El id de la categoria ya existe");
       } else {
         const categoria = await createCategory(categoriaSeleccionada);
@@ -95,7 +93,7 @@ const Products = () => {
 
   const editProduct = async (e) => {
     try {
-      if (productoSeleccionado.quantity_available < 0) {
+      if (productoSeleccionado.quantityAvailable < 0) {
         throw new Error("La cantidad disponible no puede ser negativa");
       } else {  
         const { data } = await updateProduct(productoSeleccionado);
@@ -143,7 +141,6 @@ const Products = () => {
       ...prevState,
       [name]: value
     }))
-    console.log(productoSeleccionado);
   } 
 
   const onChangeCategory = (e) => {
@@ -152,24 +149,23 @@ const Products = () => {
       ...prevState,
       [name]: value
     }))
-    console.log(categoriaSeleccionada);
   } 
 
   const seleccionarProducto = (elemento, caso) => {
     setProductoSeleccionado(elemento);
     (caso==='Editar')&&setModalEditar(true)
-    console.log(elemento);
   }  
 
   const seleccionarCategoria = (elemento) => {
     setCategoriaSeleccionada(elemento);
     setModalEditarCategoria(true)
-    console.log(elemento);
   } 
 
   useEffect(() => {   
     getProducts()
-      .then(({data}) => setProducts(data))
+      .then(({data}) => {
+        setProducts(data)
+      })
     }, [])
     
   
@@ -180,7 +176,9 @@ const Products = () => {
 
   useEffect(() => {   
     getCategories()
-      .then(({data}) => setCategories(data))
+      .then((data) => {
+        setCategories(data)
+      })
   }, [])  
 
   const onChangeCombobox = (e) => {
@@ -188,7 +186,7 @@ const Products = () => {
       setProducts(product);
     } else{
       const selectedId = e.target.value;
-      var selectedProduct = product.filter(category => category.id_category == selectedId)
+      var selectedProduct = product.filter(category => category.idCategory == selectedId)
       console.log(selectedProduct);
       setProducts(selectedProduct);
     } 
@@ -204,7 +202,7 @@ const Products = () => {
               <option>Seleccione una categoria</option>
               {
                 categories.map((category)=>(
-                  <option key={category.id_category} value={category.id_category}>{category.name}</option>               
+                  <option key={category.idCategory} value={category.idCategory}>{category.name}</option>               
                 )
               )}
             </select>
@@ -225,17 +223,17 @@ const Products = () => {
           <h1> PRODUCTOS DISPONIBLES </h1>
           {
             products.map(product=>{
-              if(product.quantity_available > 0){
+              if(product.quantityAvailable > 0){
               return(
                 <div className='product-content'>
                   <div className='product-body'>
-                      <h2 key = {product.id_product} className='product-id'>{product.id_product}</h2>
+                      <h2 key = {product.idProduct} className='product-id'>{product.idProduct}</h2>
                       <p className='product-name'>{product.name}</p>
                       <p className='product-description'>{product.description}</p>
                       <p className='product-price'>${product.price}</p>
-                      <p className='product-stock'>{product.quantity_available}</p>
+                      <p className='product-stock'>{product.quantityAvailable}</p>
                     <div className='product-btn'>
-                      <Button className="btn btn-primary" onClick={()=>seleccionarProducto(product, 'Editar')}> Editar </Button>
+                      {/* <Button className="btn btn-primary" onClick={()=>seleccionarProducto(product, 'Editar')}> Editar </Button> */}
                     </div>
                   </div>   
                 </div>
@@ -248,17 +246,17 @@ const Products = () => {
           <h1> PRODUCTOS AGOTADOS </h1>
           {
             products.map(product=>{
-              if(product.quantity_available === 0){
+              if(product.quantityAvailable === 0){
               return(
                 <div className='product-content'>
                   <div className='product-body'>
-                      <h2 key = {product.id_product} className='product-id'>{product.id_product}</h2>
+                      <h2 key = {product.idProduct} className='product-id'>{product.idProduct}</h2>
                       <p className='product-name'>{product.name}</p>
                       <p className='product-description'>{product.description}</p>
                       <p className='product-price'>${product.price}</p>
-                      <p className='product-stock'>{product.quantity_available}</p>
+                      <p className='product-stock'>{product.quantityAvailable}</p>
                     <div className='product-btn'>
-                      <Button className="btn btn-primary" onClick={()=>seleccionarProducto(product, 'Editar')}> Editar </Button>
+                      {/* <Button className="btn btn-primary" onClick={()=>seleccionarProducto(product, 'Editar')}> Editar </Button> */}
                     </div>
                   </div>   
                 </div>
@@ -273,8 +271,8 @@ const Products = () => {
             </Modal.Header>
             <Modal.Body>
               <div className='form-group'>
-                <label htmlFor="id_product">ID</label>
-                <input className = "form-control" name="id_product" label="ID" onChange={e=>onChange(e)} value={productoSeleccionado&&productoSeleccionado.id_product}
+                <label htmlFor="idProduct">ID</label>
+                <input className = "form-control" name="idProduct" label="ID" onChange={e=>onChange(e)} value={productoSeleccionado&&productoSeleccionado.idProduct}
                 />  
                 <br />
                 <label htmlFor="name">Nombre</label>
@@ -286,11 +284,11 @@ const Products = () => {
                 <label htmlFor="price">Precio</label>
                 <input className="form-control" name="price" label="Precio" onChange={e=>onChange(e)} value={productoSeleccionado&&productoSeleccionado.price}/>
                 <br />
-                <label htmlFor="quantity_available">Cantidad</label>
-                <input className="form-control" name="quantity_available" label="Cantidad" onChange={e=>onChange(e)} value={productoSeleccionado&&productoSeleccionado.quantity_available}/>
+                <label htmlFor="quantityAvailable">Cantidad</label>
+                <input className="form-control" name="quantityAvailable" label="Cantidad" onChange={e=>onChange(e)} value={productoSeleccionado&&productoSeleccionado.quantityAvailable}/>
                 <br />
-                <label htmlFor="id_category">Categoria</label>
-                <input className="form-control" name="id_category" label="Categoria" onChange={e=>onChange(e)} value={productoSeleccionado&&productoSeleccionado.id_category}/>
+                <label htmlFor="idCategory">Categoria</label>
+                <input className="form-control" name="idCategory" label="Categoria" onChange={e=>onChange(e)} value={productoSeleccionado&&productoSeleccionado.idCategory}/>
                 <br />
               </div>
              </Modal.Body>
@@ -298,9 +296,9 @@ const Products = () => {
               <Button variant="secondary" onClick={()=>setModalEditar(false)}>
                 Cerrar
               </Button>
-              <Button variant="primary" onClick={()=>editProduct()}>
+              {/* <Button variant="primary" onClick={()=>editProduct()}>
                 Editar
-              </Button>
+              </Button> */}
             </Modal.Footer>
           </Modal>
           <div className="btn-final"> 
@@ -311,12 +309,12 @@ const Products = () => {
                   <Modal.Title>AÑADIR PRODUCTO</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <TextField className="form-control" name="id_product" label="ID" onChange={e=>onChange(e)}/>
+                  <TextField className="form-control" name="idProduct" label="ID" onChange={e=>onChange(e)}/>
                   <TextField className="form-control" name="name" label="Nombre" onChange={e=>onChange(e)}/>
                   <TextField className="form-control" name="description" label="Descripcion" onChange={e=>onChange(e)}/>
                   <TextField className="form-control" name="price" label="Precio" onChange={e=>onChange(e)}/>
-                  <TextField className="form-control" name="quantity_available" label="Cantidad" onChange={e=>onChange(e)}/>
-                  <TextField className="form-control" name="id_category" label="Categoria" onChange={e=>onChange(e)}/>
+                  <TextField className="form-control" name="quantityAvailable" label="Cantidad" onChange={e=>onChange(e)}/>
+                  <TextField className="form-control" name="idCategory" label="Categoria" onChange={e=>onChange(e)}/>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={()=>handleCloseInsertar()}>
@@ -336,43 +334,19 @@ const Products = () => {
         <Modal.Header closeButton>
           <Modal.Title>AÑADIR CATEGORIA </Modal.Title>
         </Modal.Header>
-          <Modal.Body>
-            <TextField className="form-control" name="id_category" label="ID" onChange={e=>onChangeCategory(e)}/>
-            <TextField className="form-control" name="name" label="Nombre" onChange={e=>onChangeCategory(e)}/>
-          </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={()=>handleCloseInsertarCategoria()}>
-                Cerrar
-              </Button>
-              <Button variant="primary" onClick={()=>saveCategoria()}>
-                Añadir
-              </Button>
-            </Modal.Footer>
-     </Modal>
-     <Modal show={modalEditarCategoria}>
-            <Modal.Header>
-              <Modal.Title>EDITAR CATEGORIA</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div className='form-group'>
-                <label htmlFor="id_category">ID</label>
-                <input className = "form-control" name="id_product" label="ID" onChange={e=>onChangeCategory(e)} value={categoriaSeleccionada&&categoriaSeleccionada.id_category}
-                />  
-                <br />
-                <label htmlFor="name">Nombre</label>
-                <input className="form-control" name="name" label="Nombre" onChange={e=>onChangeCategory(e)} value={categoriaSeleccionada&&categoriaSeleccionada.name}/>
-                <br />
-              </div>
-             </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={()=>setModalEditarCategoria(false)}>
-                Cerrar
-              </Button>
-              <Button variant="primary" onClick={()=>editCategory()}>
-                Editar
-              </Button>
-            </Modal.Footer>
-          </Modal>
+        <Modal.Body>
+          <TextField className="form-control" name="idCategory" label="ID" onChange={e=>onChangeCategory(e)}/>
+          <TextField className="form-control" name="name" label="Nombre" onChange={e=>onChangeCategory(e)}/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={()=>handleCloseInsertarCategoria()}>
+            Cerrar
+          </Button>
+          <Button variant="primary" onClick={()=>saveCategoria()}>
+            Añadir
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </section>  
   );
 };

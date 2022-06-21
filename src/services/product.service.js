@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const url = `http://localhost:3001/api/products`;
+const user = JSON.parse(window.localStorage.getItem("user"));
 
+const url = `http://localhost:3001/api/products`;
 const config = {
   headers: {
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${user ? user.token : ""}`,
   },
 };
 

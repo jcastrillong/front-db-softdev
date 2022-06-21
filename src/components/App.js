@@ -14,9 +14,10 @@ import AddBills from "../pages/AddBills";
 import Contact from "../pages/Contact"
 //import Help from "../pages/Help"
 import Home from "../pages/Home";
-import Inventory from "../pages/Inventory";
+// import Inventory from "../pages/Inventory";
 import Login from "../pages/Login";
 import Pag404 from "../pages/Pag404";
+import Products from "../pages/AddProduct";
 import { UserContextProvider } from './../context/UserContext'
 
 import "./styles/App.css";
@@ -30,11 +31,11 @@ function App(props) {
           <NavBar />
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<PrivateRoute component={Home} />} />
             {/* Routes Protected */}
-            <Route path="/home" element={<PrivateRoute component={Home} />} />
+            <Route path="/" element={<PrivateRoute component={Home} />} />
             <Route path="/bills" element={<PrivateRoute component={Bills} />} />
-            <Route path="/home" element={<PrivateRoute component={Home} />} />
-            <Route path="/inventory" element={<PrivateRoute component={Inventory} />} />
+            <Route path="/inventory" element={<PrivateRoute component={Products} />} />
             <Route path="/add-product" element={<PrivateRoute component={AddProduct} />} />
             <Route path="/add-bills" element={<PrivateRoute component={AddBills} />} />
 
