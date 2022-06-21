@@ -136,7 +136,7 @@ const AddBills = () => {
 
   const cancelHandler = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/home");
   }
 
   const addDetail = (newDetail) => {
