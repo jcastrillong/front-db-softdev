@@ -1,9 +1,7 @@
 import React from "react";
 import {useState, useEffect} from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import './../components/styles/AddProduct.css';
-import { Modal, Button} from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import {TextField } from '@material-ui/core';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { axios }  from 'axios';
@@ -221,9 +219,6 @@ const Products = () => {
               placeholder= "Buscar"
               onChange = {handleChange}
             /> 
-            <button className="btn btn-success btn-buscar">
-              <FontAwesomeIcon icon={faSearch}/>
-            </button>
           </div> 
         </header>   
         <div className='products'>
