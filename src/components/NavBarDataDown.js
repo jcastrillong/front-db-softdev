@@ -10,10 +10,4 @@ export const NavBarDataDown = [
     icon: <AiIcons.AiOutlineContacts />,
     cName: "nav-text",
   },
-  {
-    title: "Ayuda",
-    path: "/help",
-    icon: <FiIcons.FiHelpCircle />,
-    cName: "nav-text",
-  },
 ];
