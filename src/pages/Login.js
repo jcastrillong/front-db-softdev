@@ -18,7 +18,13 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (username === "" || password === "") {
-      sweal("Error", "Por favor ingrese un usuario y contraseña", "error");
+      sweal({
+        title: "Error",
+        text: "Debe ingresar usuario y contraseña",
+        icon: "error",
+        button: "Aceptar",
+        dangerMode: true
+      });
     } else {
       login({username, password});
     }

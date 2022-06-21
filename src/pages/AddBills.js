@@ -104,7 +104,13 @@ const AddBills = () => {
                   return res;
                   })
               })
-              sweal("Factura creada", "success");
+              sweal({
+                title: "Factura creada",
+                text: "La factura se ha creado correctamente",
+                icon: "success",
+                button: "Continuar",
+                timer: 2000,
+              });
             }
             ).then(() => {
               navigate("/bills")
