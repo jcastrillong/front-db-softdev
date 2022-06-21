@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DocumentPDF = ({details}) => {
+const DocumentPDF = ({bill}) => {
   return (
     <Document>
       <Page size="B5" style={{ fontFamily: "Courier"}}>
@@ -76,7 +76,7 @@ const DocumentPDF = ({details}) => {
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" , border: "1px", borderBottomWidth: 0}}>
             <View>
               <Image 
-                style={{ width: "80px", height: "80px" }}
+                style={{ width: "80px", height: "80px", marginLeft: "10px" }}
                 src={logo} 
               />
             </View>
@@ -121,7 +121,7 @@ const DocumentPDF = ({details}) => {
                 padding: "0px 5px 0px 5px",
                 marginTop: "20px"
               }}>
-                00001
+                {bill.idBill}
               </Text>
             </View>
           </View>
@@ -130,27 +130,27 @@ const DocumentPDF = ({details}) => {
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "spacer-beetween", border: "1px", borderBottomWidth: 0}}>
             <View style={{ width: "100%", borderRight: "1px", padding: "10px 5px"}}>
               <Text style={styles.clientText}>
-                CLIENTE: {`Juan Perez`}
+                CLIENTE: {bill.client.firstName} {bill.client.lastName}
               </Text>
               <Text style={styles.clientText}>
-                C.C / NIT: {`1006050765`}
+                C.C / NIT: {bill.client.idClient}
               </Text>
               <Text style={styles.clientText}>
-                DIRECCION: {`Calle 73a #1b2 - 28`}
+                DIRECCION: {bill.client.address}
               </Text>
               <Text style={styles.clientText}>
-                TELEFONO: {`3233697719`}
+                TELEFONO: {bill.client.phone}
               </Text>
               <Text style={styles.clientText}>
-                CIUDAD: {`Cali`}
+                CIUDAD: {bill.client.city}
               </Text>
             </View>
             <View style={{ width: "100%", padding: "5px"}}>
               <Text style={styles.clientText}>
-                FORMA DE PAGO: {`Efectivo`}
+                FORMA DE PAGO: {bill.wayToPay}
               </Text>
               <Text style={styles.clientText}>
-                FECHA: {`19/06/2022`}
+                FECHA: {bill.date}
               </Text>
             </View>
           </View>
@@ -175,20 +175,20 @@ const DocumentPDF = ({details}) => {
 
             { /* TABLE CONTENT */}
             {
-              details.map((product) => {
+              bill.productsSold.map((detail) => {
                 return (
                   <View style={styles.tableRow}>
                     <View style={styles.columnWidth1}>
-                      <Text style={styles.tableCell}>{product.cantidad}</Text>
+                      <Text style={styles.tableCell}>{detail.quantity}</Text>
                     </View>
                     <View style={styles.columnWidth2}>
-                      <Text style={styles.tableCell}>{product.descripcion}</Text>
+                      <Text style={styles.tableCell}>{detail.product.description}</Text>
                     </View>
                     <View style={styles.columnWidth1}>
-                      <Text style={styles.tableCell}>{product.valor}</Text>
+                      <Text style={styles.tableCell}>{detail.product.price}</Text>
                     </View>
                     <View style={styles.columnWidth2}>
-                      <Text style={styles.tableCell}>{product.valorTotal}</Text>
+                      <Text style={styles.tableCell}>{detail.totalValue}</Text>
                     </View>
                   </View>
                 )
@@ -205,7 +205,7 @@ const DocumentPDF = ({details}) => {
                   fontSize: 11,
                   margin: "5px"
                 }}>
-                  {2000}
+                  {bill.total}
                 </Text>
               </View>
             </View>
