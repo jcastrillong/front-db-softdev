@@ -88,6 +88,7 @@
 .nav-menu-items {
   width: 100%;
   padding: 0;
+  z-index: 1000;
 }
 
 .navbar-toggle {
