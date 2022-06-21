@@ -1,12 +1,14 @@
 import React from "react";
+import error404 from "../images/500.png";
 
-const Pag404 = () => {
+const Pag500 = () => {
   return (
     <div>
+      <img src = {error404} width = "200" alt = ""/>
       <h1>Pagina no encontrada.</h1>
-      <h2>ERROR 404.</h2>
+      <h1>Error 404</h1>
     </div>
   );
 };
 
-export default Pag404;
+export default Pag500;
